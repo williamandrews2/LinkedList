@@ -46,10 +46,20 @@ class LinkedList {
     return this.length;
   }
 
-  head() {}
-  tail() {}
-  at(index) {}
+  getHead() {
+    return this.head.element;
+  }
+
+  getTail() {
+    let currentNode = this.head;
+    while (currentNode.next) {
+      currentNode = currentNode.next;
+    }
+    return currentNode.element;
+  }
+  
   pop() {}
+  at(index) {}
   contains(value) {}
   find(element) {}
   delete(element) {}
@@ -73,5 +83,6 @@ list.append(20);
 list.append(30);
 list.append(40);
 
-console.log(list.size());
 list.printToArray();
+console.log(`Head: ${list.getHead()}`);
+console.log(`Tail: ${list.getTail()}`);
