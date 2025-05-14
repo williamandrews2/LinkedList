@@ -57,8 +57,17 @@ class LinkedList {
     }
     return currentNode.element;
   }
-  
-  pop() {}
+
+  pop() {
+    let currentNode = this.head;
+    let previousNode;
+    while (currentNode.next) {
+      previousNode = currentNode;
+      currentNode = currentNode.next;
+    }
+    previousNode.next = null;
+  }
+
   at(index) {}
   contains(value) {}
   find(element) {}
@@ -73,7 +82,7 @@ class LinkedList {
       result.push(currentNode.element);
       currentNode = currentNode.next;
     }
-    console.log(result);
+    return result;
   }
 }
 
@@ -83,6 +92,8 @@ list.append(20);
 list.append(30);
 list.append(40);
 
-list.printToArray();
+console.log(list.printToArray());
 console.log(`Head: ${list.getHead()}`);
 console.log(`Tail: ${list.getTail()}`);
+list.pop();
+console.log(`After pop: ${list.printToArray()}`);
