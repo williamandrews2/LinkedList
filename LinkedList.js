@@ -28,11 +28,6 @@ class LinkedList {
 
   prepend(element) {
     let node = new Node(element);
-
-    if (this.head === null) {
-      this.head = node;
-    }
-
     node.next = this.head;
     this.head = node;
     this.length++;
@@ -51,6 +46,8 @@ class LinkedList {
   }
 
   getTail() {
+    if (!this.head) return null;
+
     let currentNode = this.head;
     while (currentNode.next) {
       currentNode = currentNode.next;
@@ -59,6 +56,16 @@ class LinkedList {
   }
 
   pop() {
+    // empty list
+    if (!this.head) return;
+
+    // list contains only one element
+    if (!this.head.next) {
+      this.head = null;
+      this.length--;
+    }
+
+    // more than one element
     let currentNode = this.head;
     let previousNode;
     while (currentNode.next) {
@@ -82,12 +89,10 @@ class LinkedList {
 
   contains(value) {
     let currentNode = this.head;
-    let count = 0;
-    while (count < this.length) {
+    while (currentNode) {
       if (value === currentNode.element) {
         return true;
       }
-      count++;
       currentNode = currentNode.next;
     }
     return false;
@@ -96,7 +101,7 @@ class LinkedList {
   find(element) {
     let currentNode = this.head;
     let index = 0;
-    while (index < this.length) {
+    while (currentNode) {
       if (currentNode.element === element) {
         return index;
       }
@@ -107,21 +112,24 @@ class LinkedList {
   }
 
   delete(element) {
-    let currentNode = this.head;
+    if (!this.head) return;
 
     if (currentNode.element === element) {
       this.head = currentNode.next;
+      this.length--;
       return;
     }
+
+    let currentNode = this.head;
 
     while (currentNode.next) {
       if (currentNode.next.element === element) {
         currentNode.next = currentNode.next.next;
+        this.length--;
         return;
       }
       currentNode = currentNode.next;
     }
-    return;
   }
   insertAt(value, index) {}
   removeAt(value, index) {}
