@@ -131,8 +131,30 @@ class LinkedList {
       currentNode = currentNode.next;
     }
   }
-  insertAt(value, index) {}
-  removeAt(value, index) {}
+
+  insertAt(element, index) {
+    const node = new Node(element);
+
+    if (index > this.length || index < 0) return;
+
+    if (index === 0) {
+      this.prepend(element);
+    }
+
+    let currentNode = this.head;
+    let count = 0;
+    while (currentNode) {
+      if (count === index - 1) {
+        node.next = currentNode.next;
+        currentNode.next = node;
+        this.length++;
+        return;
+      }
+      count++;
+      currentNode = currentNode.next;
+    }
+  }
+  removeAt(element, index) {}
 
   printToArray() {
     let result = [];
@@ -152,5 +174,7 @@ list.append(30);
 list.append(40);
 
 console.log(list.printToArray());
+
+list.insertAt(50, 1);
 
 console.log(list.printToArray());
