@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class LinkedList {
+export class LinkedList {
   constructor() {
     this.head = null;
     this.length = 0;
@@ -154,27 +154,37 @@ class LinkedList {
       currentNode = currentNode.next;
     }
   }
-  removeAt(element, index) {}
+  removeAt(index) {
+    if (index >= this.length || index < 0) return;
 
-  printToArray() {
+    let currentNode = this.head;
+    let count = 0;
+
+    if (index === 0) {
+      this.head = currentNode.next;
+      this.length--;
+      return;
+    }
+
+    while (currentNode) {
+      if (count === index - 1) {
+        currentNode.next = currentNode.next.next;
+        this.length--;
+        return;
+      }
+      count++;
+      currentNode = currentNode.next;
+    }
+  }
+
+  toString() {
     let result = [];
     let currentNode = this.head;
     while (currentNode) {
       result.push(currentNode.element);
       currentNode = currentNode.next;
     }
-    return result;
+    const string = result.map(String).join(" -> ");
+    return string;
   }
 }
-
-const list = new LinkedList();
-list.append(10);
-list.append(20);
-list.append(30);
-list.append(40);
-
-console.log(list.printToArray());
-
-list.insertAt(50, 1);
-
-console.log(list.printToArray());
