@@ -66,12 +66,63 @@ class LinkedList {
       currentNode = currentNode.next;
     }
     previousNode.next = null;
+    this.length--;
   }
 
-  at(index) {}
-  contains(value) {}
-  find(element) {}
-  delete(element) {}
+  at(index) {
+    if (index >= this.length) return null;
+    if (index === 0) return this.head.element;
+
+    let currentNode = this.head;
+    for (let i = 0; i < index; i++) {
+      currentNode = currentNode.next;
+    }
+    return currentNode.element;
+  }
+
+  contains(value) {
+    let currentNode = this.head;
+    let count = 0;
+    while (count < this.length) {
+      if (value === currentNode.element) {
+        return true;
+      }
+      count++;
+      currentNode = currentNode.next;
+    }
+    return false;
+  }
+
+  find(element) {
+    let currentNode = this.head;
+    let index = 0;
+    while (index < this.length) {
+      if (currentNode.element === element) {
+        return index;
+      }
+      index++;
+      currentNode = currentNode.next;
+    }
+    return -1;
+  }
+
+  delete(element) {
+    let currentNode = this.head;
+
+    if (currentNode.element === element) {
+      this.head = currentNode.next;
+      return;
+    }
+
+    while (currentNode.next) {
+      if (currentNode.next.element === element) {
+        currentNode.next = currentNode.next.next;
+        return;
+      }
+      currentNode = currentNode.next;
+    }
+    return;
+  }
   insertAt(value, index) {}
   removeAt(value, index) {}
 
@@ -93,7 +144,5 @@ list.append(30);
 list.append(40);
 
 console.log(list.printToArray());
-console.log(`Head: ${list.getHead()}`);
-console.log(`Tail: ${list.getTail()}`);
-list.pop();
-console.log(`After pop: ${list.printToArray()}`);
+
+console.log(list.printToArray());
